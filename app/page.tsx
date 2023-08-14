@@ -1,95 +1,69 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import Sidebar from "@/components/Sidebar";
+import Suggestions from "@/components/Suggestions";
+import styles from "../styles/home.module.scss";
+import { useEffect, useState } from "react";
+import data from "../data.json";
 
-export default function Home() {
+export interface Feedback {
+  id: number;
+  title: string;
+  category?: string;
+  upvotes: number;
+  status: string;
+  description: string;
+  comments: Comment[];
+}
+export interface Comment {
+  id: number;
+  content: string;
+  user: {
+    image: string;
+    name: string;
+    username: string;
+  };
+}
+
+const Home = () => {
+  const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+
+  const UpadateLSDummyData = () => {
+    if (typeof window !== "undefined") {
+      const existingFeedbacks = JSON.parse(
+        localStorage.getItem("feedbacks") || "[]"
+      );
+      if (existingFeedbacks.length === 0) {
+        localStorage.setItem("feedbacks", JSON.stringify(data.productRequests));
+      }
+    }
+  };
+
+  useEffect(() => {
+    UpadateLSDummyData();
+    const storedFeedbacks = JSON.parse(
+      localStorage.getItem("feedbacks") || "[]"
+    );
+    setFeedbacks(storedFeedbacks);
+  }, []);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+    <div className={styles.home}>
+      <div className={styles.SideBar}>
+        <Sidebar
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
         />
       </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className={styles.mainContainer}>
+        <Suggestions
+          feedbacks={feedbacks}
+          selectedCategory={selectedCategory}
+        />
       </div>
-    </main>
-  )
-}
+    </div>
+  );
+};
+
+export default Home;

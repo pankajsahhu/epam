@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&display=swap");
+@import "mixins";
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Jost", sans-serif  !important;
+}
+
+body {
+  background-color: #f7f8fd;
+  color: #647196;
+  font-size: 16px;
+  line-height: 23px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @include tablet {
+    max-width: 90%;
+  }
+}
+
+.label {
+  color: #4661e6;
+  background-color: #f2f2f2;
+  padding: 5px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+
+}
+.label-hover:hover {
+  cursor: pointer;
+}
+.label.active {
+  background-color: #4661e6;
+  color: #ffffff;
+}
+.dropdown {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 10px 40px -7px #373f6859;
+
+  div {
+    padding: 12px 24px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:hover {
+      color: #ad1fea;
+    }
+
+    &:last-child {
+      border: none;
+    }
+
+    img {
+      display: none;
+    }
+
+    &.active {
+      img {
+        display: inline;
+      }
+    }
+  }
+}
+
+.text-white {
+  color: #ffffff;
+}
+.text-light {
+  color: #f2f2f2;
+}
+.text-cap {
+  text-transform: capitalize;
+}
+.text-Upcase {
+  text-transform: uppercase;
+}
+.text-bold {
+  font-weight: 700;
+}
+
+.bg-orange {
+  background-color: #f49f85;
+}
+.bg-purple {
+  background-color: #ad1fea;
+}
+.bg-dark {
+  background-color: #3a4374;
+}
+
+.btn-transparent {
+  color: #3a4374;
+  background-color: transparent;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+
+  img {
+    margin-right: 10px;
+  }
+}
+
+.SkillText {
+  font-size: 13px;
+  line-height: 19px;
+}
+.btn {
+  color: #f2f2f2;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-hover:hover {
+  opacity: 0.9;
+}
+
+
+.form-label {
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.form-input {
+  background-color: #f7f8fd;
+  padding: 12px 24px;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-size: 15px;
+  color: #3a4374;
+
+  &:focus {
+    border: 1px solid #4661e6;
+  }
+}
